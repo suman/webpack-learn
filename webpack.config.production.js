@@ -4,9 +4,13 @@ const { CleanWebpackPlugin }= require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        'index': './src/index.js',
+        'suman': './src/suman.js',
+    },
+
     output: {
-        filename: 'bundle[contenthash].js',
+        filename: '[name][contenthash].js',
         path: path.resolve(__dirname, './dist'),
         publicPath: ''
     },
@@ -46,15 +50,25 @@ module.exports = {
     },
     plugins: [
         new miniCssExtractPlugin({
-            filename: 'styles.[contenthash].css'
+            filename: '[name].[contenthash].css'
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Hello world',
-            template: 'src/index.hbs',
-            description: 'Some description'
+            filename: 'helloworld.html',
+            title: 'heading',
+            template: 'src/page-template.hbs',
+            description: 'Heading is here',
+            chunks: ['index'],
+            minify: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'suman.html',
+            title: 'Suman Image',
+            template: 'src/page-template.hbs',
+            description: 'Suman image is here',
+            chunks: ['suman'],
+            minify: false
         })
     ],
-
     mode: 'production'
 }
