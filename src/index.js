@@ -11,5 +11,9 @@ headingInstance.render()
 const hellWorldIntance = new HelloWorldButton();
 console.log(hellWorldIntance.render())
 
-
+if (process.env.NODE_ENV === 'production') {
+    console.log("This is production")
+} else {
+    console.log("This is development")
+}
 // addImage();

@@ -1,13 +1,11 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin')
-const miniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin }= require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'bundle[contenthash].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, './dist'),
         publicPath: ''
     },
@@ -29,29 +27,35 @@ module.exports = {
 
             {
                 test: /\.css/,
-                use: [miniCssExtractPlugin.loader, 'css-loader']
+                use: ['style-loader', 'css-loader']
             },
 
             {
                 test: /\.scss$/,
-                use: [miniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+                use: ['style-loader', 'css-loader', 'sass-loader']
             },
-            
-            
+
+            {
+                test: /\.hbs$/,
+                loader: 'handlebars-loader'
+            },
         ]
     },
-    mode: 'none',
+    mode: 'development',
     plugins: [
-        new TerserPlugin(),
-        new miniCssExtractPlugin({
-            filename: 'styles.css'
-        }),
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',
-                path.join(process.cwd(), 'build/**/*')
-            ]
-        }),
-        new HtmlWebpackPlugin()
-    ]
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Hello world',
+            template: 'src/index.hbs',
+            description: 'Some description'
+        })
+    ],
+    
+    devServer: {
+        contentBase: path.resolve(__dirname, './dist'),
+        index: 'index.html',
+        port: 9000,
+        writeToDisk: true,
+        host: "localhost.specialurl.com"
+    }
 }
