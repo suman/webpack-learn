@@ -1,0 +1,15 @@
+// import helloWorld from './hello-world.js'
+// import HelloWorldButton from './src/components/helloworld-button/hello-world-button.js'
+import HelloWorldButton from './components/hello-world-button/hello-world-button.js';
+
+import Heading from './components/heading/heading.js';
+
+const headingInstance = new Heading();
+headingInstance.render()
+
+// import addImage from './add-image.js'
+const hellWorldIntance = new HelloWorldButton();
+console.log(hellWorldIntance.render())
+
+
+// addImage();
