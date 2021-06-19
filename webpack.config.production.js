@@ -70,5 +70,10 @@ module.exports = {
             minify: false
         })
     ],
-    mode: 'production'
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 }
